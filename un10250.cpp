@@ -1,30 +1,85 @@
 /*
 입력
-프로그램은 표준 입력에서 입력 데이터를 받는다. 프로그램의 입력은 T 개의 테스트 데이터로 이루어져 있는데 T 는 입력의 맨 첫 줄에 주어진다. 각 테스트 데이터는 한 행으로서 H, W, N, 세 정수를 포함하고 있으며 각각 호텔의 층 수, 각 층의 방 수, 몇 번째 손님인지를 나타낸다(1 ≤ H, W ≤ 99, 1 ≤ N ≤ H × W).
+첫째 줄에 종이의 세로 크기 N과 가로 크기 M이 주어진다. (4 ≤ N, M ≤ 500)
+
+둘째 줄부터 N개의 줄에 종이에 써 있는 수가 주어진다. i번째 줄의 j번째 수는 위에서부터 i번째 칸, 왼쪽에서부터 j번째 칸에 써 있는 수이다. 입력으로 주어지는 수는 1,000을 넘지 않는 자연수이다.
 
 출력
-프로그램은 표준 출력에 출력한다. 각 테스트 데이터마다 정확히 한 행을 출력하는데, 내용은 N 번째 손님에게 배정되어야 하는 방 번호를 출력한다.
+첫째 줄에 테트로미노가 놓인 칸에 쓰인 수들의 합의 최댓값을 출력한다.
 */
+#pragma warning(disable: 4819)
 #include<iostream>
+#include<queue>
 using namespace std;
-int main()
+int n, m;
+int map[500][500] = { 0, };
+int ch[500][500] = { false, };
+int ix[4] = { 0,0,-1,1 };
+int iy[4] = { 1,-1,0,0 };
+long mx = -1;
+
+queue<pair<int, int> > q;
+
+void bfs(int, int);
+int cnt() {
+	int ret = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			if (ch[i][j])
+				ret += map[i][j];
+	return ret;
+}
+bool rang(int x, int y) {
+
+	if (x < 0 || y < 0 || n - 1 < x || m - 1 < y)
+		return false;
+	return true;
+}
+
+void dfs(int x, int y, int num) //x,y,고른수
 {
-	int h[1024], w, n[1024];
-	int k = 0;
-	cin >> k;
-	for (int p = 0; p < k; p++) {
-		cin >> h[p] >> w >> n[p];
+	ch[x][y] = true;
+	if (num == 4) {//4개를 골랏다면 
+		int re = cnt();//합산 
+		if (mx == -1 || re > mx)
+			mx = re;//최대값 갱신 
+		return;// 종료 
 	}
-	for (int p = 0; p < k; p++) {
+	// 4개 고르지 못함 
+	for (int i = 0; i < 4; i++) {
+		int nx = x + ix[i];
+		int ny = y + iy[i];
+		if (rang(nx, ny) && !ch[nx][ny]) {
 
-		cout << n[p] % h[p];
-		cout.fill('0');
-		cout.width(2);
-		if (h[p] == 0)
-			h[p] = 1;
-
-		cout << (n[p] / h[p]) + 1 << endl;
-
+			dfs(nx, ny, num + 1);
+			ch[nx][ny] = false;
+		}
 	}
 
+	/*
+	int nx,ny,x,y;
+	while(!q.empty()){
+	x=q.front().first;
+	y=q.front().second;
+
+	for(int k=0;k<4;k++)
+	{
+	nx = x +ix[k];
+	ny = y +iy[k];
+	if(rang(nx,ny) && ch[nx][ny]==false)
+	{
+	num++;
+	q.push(make_pair(nx,ny));
+	}
+	}
+	}*/
+
+}
+int main() {
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			cin >> map[i][j];
+	dfs(0, 0, 0);
+	cout << mx;
 }
