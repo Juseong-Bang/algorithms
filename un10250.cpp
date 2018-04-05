@@ -7,9 +7,10 @@
 출력
 첫째 줄에 테트로미노가 놓인 칸에 쓰인 수들의 합의 최댓값을 출력한다.
 */
-#pragma warning(disable: 4819)
 #include<iostream>
 #include<queue>
+#include<cstring>
+
 using namespace std;
 int n, m;
 int map[500][500] = { 0, };
@@ -20,7 +21,6 @@ long mx = -1;
 
 queue<pair<int, int> > q;
 
-void bfs(int, int);
 int cnt() {
 	int ret = 0;
 	for (int i = 0; i < n; i++)
@@ -35,44 +35,54 @@ bool rang(int x, int y) {
 		return false;
 	return true;
 }
-
 void dfs(int x, int y, int num) //x,y,고른수
 {
-	ch[x][y] = true;
+
 	if (num == 4) {//4개를 골랏다면 
 		int re = cnt();//합산 
 		if (mx == -1 || re > mx)
 			mx = re;//최대값 갱신 
+		/*
+		if (re == 7)
+			for (int i = 0; i < n; i++)
+			{
+				for (int j = 0; j < m; j++)
+					cout << ch[i][j] << ",";
+				cout << endl;
+			}
+			*/
 		return;// 종료 
 	}
+	ch[x][y] = true;
+	
+	if (num == 3) { // ㅗ 모양 
+		int xl, yl, xh, yh;
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				if (ch[i][j] == true)
+				{
+					if (i > xh)
+						xh = i;
+					else if (i < xl)
+						xl = i;
+					if (j > yh)
+						yh = j;
+					else if (j < yl)
+						yl = j;
+				}
+
+	}
+
 	// 4개 고르지 못함 
 	for (int i = 0; i < 4; i++) {
 		int nx = x + ix[i];
 		int ny = y + iy[i];
 		if (rang(nx, ny) && !ch[nx][ny]) {
-
 			dfs(nx, ny, num + 1);
 			ch[nx][ny] = false;
 		}
 	}
-
-	/*
-	int nx,ny,x,y;
-	while(!q.empty()){
-	x=q.front().first;
-	y=q.front().second;
-
-	for(int k=0;k<4;k++)
-	{
-	nx = x +ix[k];
-	ny = y +iy[k];
-	if(rang(nx,ny) && ch[nx][ny]==false)
-	{
-	num++;
-	q.push(make_pair(nx,ny));
-	}
-	}
-	}*/
+	
 
 }
 int main() {
@@ -80,6 +90,11 @@ int main() {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			cin >> map[i][j];
-	dfs(0, 0, 0);
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+		{
+			memset(ch, 0, sizeof(ch));
+			dfs(i, j, 0);
+		}
 	cout << mx;
 }
