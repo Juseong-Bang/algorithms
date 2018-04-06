@@ -43,9 +43,12 @@ int pick[10] = { 0, };
 void ch(int x, int y, int cur, int cnt)//x,y부터 m개중 선택하는 dfs함수 
 {
 
-	if (cur >= m)
+	if (cur >= m - 1)
 	{
-		
+
+		if (cnt > c)
+			return;
+
 		int pr = 0;
 
 		for (int i = y; i < y + m; i++)
@@ -53,22 +56,20 @@ void ch(int x, int y, int cur, int cnt)//x,y부터 m개중 선택하는 dfs함수
 			if (pick[i] == 1)//만약에 m개의 벌통중 i번쨰껄 선택 햇다면 
 				pr += (map[x][i] * map[x][i]);
 		}
-
 		if (vi[x][y] <= pr)
 			vi[x][y] = pr;
 
 		return;
 	}
-	else
-	{
 
-		pick[y + cur + 1] = 1;
-		ch(x, y, cur + 1, cnt + map[x][y + cur + 1]);
 
-		pick[cur + 1] = 0;
-		ch(x, y, cur + 1, cnt);//현재껄 포함하지 않은 c 
+	pick[y + cur + 1] = 1;//0번 부터 선택 결정 
+	ch(x, y, cur + 1, cnt + map[x][y + cur + 1]);//0번이 선택
 
-	}
+	pick[y + cur + 1] = 0;//0번 선택 안함 // 이런거 조건좀 제발 잘 보고 하자 
+	ch(x, y, cur + 1, cnt);//현재껄 포함하지 않은 c 
+
+
 }
 
 int main() {
@@ -87,7 +88,7 @@ int main() {
 			for (int j = 0; j < n - m + 1; j++)
 			{
 				memset(pick, 0, sizeof(pick));
-				ch(i, j, -1, 0);
+				ch(i, j, -1, 0);//i,j에서 m개를 고르는 최댓값 구하기 
 			}
 
 		int m1[2][2] = { 0, };
@@ -119,7 +120,7 @@ int main() {
 					}
 				}
 		}
-
+		/*
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < n; j++)
@@ -128,7 +129,7 @@ int main() {
 			}
 			cout << endl;
 		}
-
+		*/
 		temp = vi[m1[0][0]][m1[0][1]] + vi[m1[1][0]][m1[1][1]];
 		cout << "#" << tc + 1 << " " << temp << endl;
 		memset(vi, 0, sizeof(vi));
