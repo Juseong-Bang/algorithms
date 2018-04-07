@@ -25,68 +25,69 @@ double e;//세율
 long long s[1000][2];//x,y
 double t[1000][1000];//s1과 s2를 직접 이었을때 세금 
 
- double cost(int s1,int s2){
-	return (pow(s[s1][0]-s[s2][0],2)+pow(s[s1][1]-s[s2][1],2))*e;
+double cost(int s1, int s2) {
+	return (pow(s[s1][0] - s[s2][0], 2) + pow(s[s1][1] - s[s2][1], 2))*e;
 }
 
-long long tax(){
-	double ret=0;
-bool g[1000]={false,};	
-for(int i=0;i<n;i++)	
-for(int j=i+1;j<n;j++){
-	t[i][j]=cost(i,j);
-	t[j][i]=t[i][j];
-//	cout<<t[i][j]<<endl;
-}
+long long tax() {
+	double ret = 0;
+	bool g[1000] = { false, };
+	for (int i = 0; i < n; i++)
+		for (int j = i + 1; j < n; j++) {
+			t[i][j] = cost(i, j);
+			t[j][i] = t[i][j];
+			//	cout<<t[i][j]<<endl;
+		}
 
 	double min = 0;
-	int s1,s2=0;
-		g[0]=true;//시작점 하나 고름
-	
-	for(int u=0;u<n;u++)
+	int s1, s2 = 0;
+	g[0] = true;//시작점 하나 고름
+
+	for (int u = 0; u < n; u++)
 	{
-		min=0;
-		
-	for(int i=0;i<n;i++){
-		
-		if(g[i])//그룹이 아닌점은 pass  
-			for(int j=0;j<n;j++)
-		{	
-			if(!g[j])//연결 그룹에 속해있지 않다면 
-			{
-				if(min == 0)
+		min = 0;
+
+		for (int i = 0; i < n; i++) {
+
+			if (g[i])//그룹이 아닌점은 pass  
+				for (int j = 0; j < n; j++)
 				{
-					min=t[i][j];//초기 설정 
-					s2=j;
+					if (!g[j])//연결 그룹에 속해있지 않다면 
+					{
+						if (min == 0)
+						{
+							min = t[i][j];//초기 설정 
+							s2 = j;
+						}
+						else if (t[i][j] < min) {
+							min = t[i][j];//최소 비용 저장
+							s2 = j;//연결 섬 저장
+						}
+
+					}
 				}
-				else if(t[i][j]<min){
-					min=t[i][j];//최소 비용 저장
-					s2=j;//연결 섬 저장
-				}
-				
-			}
 		}
-	}
-		g[s2]=true;
+		g[s2] = true;
 		ret += min;
-//		cout<<s2<<":"<<ret<<endl;
-	
-}//
-	return (long long)(ret+0.5);
+		//		cout<<s2<<":"<<ret<<endl;
+
+	}//
+	return (long long)(ret + 0.5);
 }
-int main (){
-	cin >>c;
-	
-	for(int i=0;i<c;i++){
-		cin>>n;
-for(int j=0;j<n;j++){
-	cin>>s[j][0];
-}
-for(int j=0;j<n;j++){
-	cin>>s[j][1];
-}
-		cin>>e;
-//		tax();
-		cout<<"#"<<i+1<<" "<<tax()<<endl;
+int main()
+{
+	cin >> c;
+
+	for (int i = 0; i < c; i++) {
+		cin >> n;
+		for (int j = 0; j < n; j++) {
+			cin >> s[j][0];
+		}
+		for (int j = 0; j < n; j++) {
+			cin >> s[j][1];
+		}
+		cin >> e;
+		//		tax();
+		cout << "#" << i + 1 << " " << tax() << endl;
 	}
 }

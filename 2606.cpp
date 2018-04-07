@@ -36,7 +36,7 @@ int bfs(){
 			{
 				visit[i]=1;
 				q.push(i);
-				cout<<c<<","<<i<<endl;
+				//cout<<c<<","<<i<<endl;
 			}
 	}
 	

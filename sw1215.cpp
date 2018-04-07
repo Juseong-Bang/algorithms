@@ -9,7 +9,8 @@
 [출력]
 
 #부호와 함께 테스트 케이스의 번호를 출력하고, 공백 문자 후 찾은 회문의 개수를 출력한다.
-*/#include<iostream>
+*/
+#include<iostream>
 #include<stdio.h>
 using namespace std;
 char map[8][8] = { 0, };

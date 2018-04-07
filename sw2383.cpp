@@ -59,14 +59,6 @@ int cnt(){
 			tm[v[a]-1][a]=tem1;//마지막 원소 삽입
 		}
 	}
-	/*
-	for(int i=0;i<2;i++){
-		for(int x=0;x<v[i];x++){
-			cout<<tm[x][i]<<",";
-		}
-		cout<<endl;
-		}
-	*/
 	int ma=-1;
 	int l=0,x;
 	for(int i=0;i<2;i++)//0번과 1번
