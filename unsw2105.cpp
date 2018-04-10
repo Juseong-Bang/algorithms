@@ -30,21 +30,20 @@
 #include<iostream>
 using namespace std;
 int n;
-
 int map[21][21] = { 0, };
+
 int ix[4] = { 1, 1,-1,-1 };
 int iy[4] = { 1,-1,-1, 1 };
 int menu[80] = { 0, };
-int vi[21][21] = { 0, };
 int ma = -1;
 
 bool rng(int x, int y)
 {
-	if (x < 0 || y < 0 || x >= n || y >= n)
-		return false;
-	return true;
+	if (x < 0 || y < 0 || x >= n || y >= n)//범위를 벗어남
+		return false;//false
+	return true;//true
 }
-void quickSort(int first, int last)
+void quickSort(int first, int last)// qsort
 {
 	int pivot;
 	int i;
@@ -91,25 +90,24 @@ void quickSort(int first, int last)
 }
 bool test(int item)//중복검사 
 {
-	quickSort(0, item - 1);
+	quickSort(0, item - 1);//정렬 , 0~item-1번째 주소까지 사용 
 
 	int temp = menu[0];
 
 	for (int i = 1; i < item; i++)
-		if (temp == menu[i])
+		if (temp == menu[i])//중복 검사 
 			return false;
 		else
 			temp = menu[i];
+
 	return true;
 }
 void cal()
 {
-	int x, y, dot;
-	int uu = 0, fo = 0, on = 0;
+	int x, y, dot, uu = 0, fo = 0, on = 0;
 
-	for (int i = 0; i < n - 2; i++)
-		for (int j = 1; j < n - 1; j++)
-		{
+	for (int i = 0; i < n - 2; i++)//시작점 i 
+		for (int j = 1; j < n - 1; j++)//j
 			for (int u = 1; u < n - 1; u++)//i,j에서 u만큼 대각선 
 				for (int v = 1; v < n - 1; v++)//u만큼 간뒤 v만큼 대각선 
 				{
@@ -119,30 +117,27 @@ void cal()
 
 					for (fo = 0; fo < 4; fo++)
 					{
-						if (fo % 2 == 0)
+						if (fo % 2 == 0)//0,2
 							uu = u;
-						else
+						else//1,3
 							uu = v;
-
-						for (on = 0; on < uu; on++)
+						for (on = 0; on < uu; on++)//uu번 
 						{
 							x += ix[fo];
 							y += ix[fo];
+
 							if (!rng(x, y))//범위 벗어남 
 								break;
-							menu[dot++] = map[x][y];
+							else//범위 내부
+								menu[dot++] = map[x][y];
 						}
-						if (on < uu)//break로 나오는 경우 
+						if (on < uu)//범위에서 벗어나 break로 나오는 경우 
 							break;
 					}
-					if (fo == 4 && test(dot))//겹치는지 검사 
-
-						if (ma < (2 * u + 2 * v))
-							ma = (2 * u + 2 * v);
-
-
+					if (fo == 4 && test(dot))//4변이 다 추가되고 , 겹치는지 검사 
+						if (ma < dot)//최대값 저장 
+							ma = dot;
 				}
-		}
 }
 int main()
 {
@@ -156,10 +151,10 @@ int main()
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
 				cin >> map[i][j];
-		if (tc != 0)
-			continue;
+
 		ma = -1;
 		cal();
 		cout << "#" << tc + 1 << " " << ma << endl;
 	}
+	return 0;
 }
