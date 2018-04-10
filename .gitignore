@@ -6,3 +6,4 @@
 *.filters
 .vs/algorithms/v14/.suo
 .vs/algorithms/v14/.suo
+*.obj
