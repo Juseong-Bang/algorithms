@@ -1,5 +1,3 @@
-﻿  unsw2105.cpp
-c:\users\bj241\documents\algorithms\unsw2105.cpp(144): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: 'freopen' 선언을 참조하십시오.
+﻿  7569.cpp
   algorithms.vcxproj -> C:\Users\bj241\Documents\algorithms\Debug\algorithms.exe
   algorithms.vcxproj -> C:\Users\bj241\Documents\algorithms\Debug\algorithms.pdb (Full PDB)
