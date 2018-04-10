@@ -124,7 +124,7 @@ void cal()
 						for (on = 0; on < uu; on++)//uu번 
 						{
 							x += ix[fo];
-							y += ix[fo];
+							y += iy[fo];//이런거좀 잘보자 
 
 							if (!rng(x, y))//범위 벗어남 
 								break;
