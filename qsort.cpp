@@ -84,3 +84,30 @@ int main(void)
 
 	return 0;
 }
+int ar[100] = { 0, };
+void qsort(int front, int rear)//오름차순 정렬 
+{
+	int temp, i = front + 1, pi = front, j = front;
+
+	if (front < rear)
+	{
+		for (; i <= rear; i++) // i == pivot+1~rear 
+		{
+			if (ar[i] < ar[pi])
+			{
+				j++;//j를 하나 늘리고 
+				//i와 j 교체 
+				temp = ar[j];
+				ar[j] = ar[i];
+				ar[i] = temp;
+			}
+		}
+		//j와 pivot 교체 
+		temp = ar[j];
+		ar[j] = ar[pi];
+		ar[pi] = temp;
+
+		qsort(front, j - 1);
+		qsort(j + 1, rear);
+	}
+}
