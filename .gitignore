@@ -6,4 +6,8 @@
 *.filters
 .vs/algorithms/v14/.suo
 .vs/algorithms/v14/.suo
+<<<<<<< HEAD
 .vs/algorithms/v14/.suo
+=======
+*.obj
+>>>>>>> fdbc4128c8edc1292b8bda380ddcad020e609596
