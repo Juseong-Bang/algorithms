@@ -1,4 +1,5 @@
-/*문제
+/*
+문제
 N(2≤N≤10,000)개의 섬으로 이루어진 나라가 있다. 이들 중 몇 개의 섬 사이에는 다리가 설치되어 있어서 차들이 다닐 수 있다.
 
 영식 중공업에서는 두 개의 섬에 공장을 세워 두고 물품을 생산하는 일을 하고 있다.
@@ -20,21 +21,35 @@ N(2≤N≤10,000)개의 섬으로 이루어진 나라가 있다. 이들 중 몇 개의 섬 사이에는 다�
 첫째 줄에 답을 출력한다.
 */
 #include<iostream>
+#include<queue>
 using namespace std;
-int n, m,s,d;
-int b[100000][2] = { 0, };//다리 연결정보 
-long c[100000] = { 0, };//
 
-int bfs() 
+int n, m, s, d;
+int b[100000][2] = { 0, };//다리 연결정보 
+long c[100000] = { 0, };//중량 정보
+typedef struct brid {
+	int s;
+	int e;
+	long w;
+}br;
+queue <br> q;
+
+int bfs()
 {
+	br es;
+	
+
 
 }
-int main() {
+int main() 
+{
 	cin >> n >> m;
+	
 	for (int i = 0; i < m; i++)
-		cin >> b[i][0] >> b[i][1] >>c[i];
+		cin >> b[i][0] >> b[i][1] >> c[i];
+	
 	cin >> s >> d;
 
 	int ret = bfs();
-	
+
 }
