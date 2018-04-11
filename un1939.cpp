@@ -27,29 +27,60 @@ using namespace std;
 int n, m, s, d;//섬,다리,시작,끝
 int b[100000][2] = { 0, };//다리 연결정보 ,양방향
 long c[100000] = { 0, };//중량 정보
-bool vi[100000] = { 0, };
+bool vi[100000] = { false, };
 typedef struct bridge {
 	int s;
 	int e;
 	long w;
 }bg;
-queue <pair<int,int> > q;//연결 지점, 현재 연결들의 중량제한 최소값 
+
+queue <bg> q;//연결 지점, 현재 연결들의 중량제한 최소값 
 
 int bfs()
 {
-	int ns;
-	for (int i = 0; i < m; i++)
-		if (vi[i] == false && (s == b[i][0] || s == b[i][1]))//사용한적 X , 시작또는 끝이 연결
+	int ns, ne;
+	bg e;
+	long nc,mx = -1;
+
+	e.s = -1;
+	e.e = s;
+	e.w = -1;
+	q.push(e);
+	
+	while (!q.empty())
+	{
+		ns = q.front().s;
+		ne = q.front().e;
+		nc = q.front().w;
+		q.pop();
+
+		if (ne == d) //맨끝에 도달함
 		{
-			q.push(make_pair(s, c[i]));
-			vi[i] = true;
-
-			while (!q.empty()) 
-			{
-
-			
-			}
+			if (mx < nc)
+				mx = nc;
+			continue;
 		}
+
+		for (int j = 0; j < m; j++)
+			if (vi[j] == false)
+				if (ne == b[j][0] || ne == b[j][1])//시작 또는 끝이 같다면 
+				{
+					vi[j] = true;
+					e.s = ne;//끝점을 시작점으로 시작 
+					e.e = (ne == b[j][0] ? b[j][1] : b[j][0]);
+
+					if (nc == -1 || nc > c[j])
+						e.w = c[j];
+					else
+						e.w = nc;
+
+					if (mx != -1 && e.w < mx)//이미 구해진 최대 중량보다 작다면
+						continue;
+
+					q.push(e);
+				}
+	}
+	return mx;
 }
 int main()
 {
@@ -59,7 +90,6 @@ int main()
 		cin >> b[i][0] >> b[i][1] >> c[i];
 
 	cin >> s >> d;
-
-	int ret = bfs();
-
+	cout << bfs()<<endl;
+	return 0;
 }
