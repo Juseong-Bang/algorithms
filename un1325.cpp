@@ -13,50 +13,57 @@
 첫째 줄에, 김지민이 한 번에 가장 많은 컴퓨터를 해킹할 수 있는 컴퓨터의 번호를 오름차순으로 출력한다.
 */
 #include<iostream>
-#include<queue>
+#include<cstdio>
 #include<cstring>
+#include<queue>
 using namespace std;
 int n, m;
-int map[100000][2] = { 0, };
-int vi[10000] = { 0, };
-int mx[10000] = { 0, };
-int dfs(int cur, int cnt)
+int map[100000][2] = { 0, };//M,2
+int vi[100000] = { 0, };//M
+int mx[10000] = { 0, };//N
+queue<int> q;
+int bfs(int st)
 {
-	if (cur == m)
+	int ns, d = 1;
+	q.push(st);
+	while (!q.empty())
 	{
-		return cnt;
-	}
-	else
-	{
-		for (int i = 0; i < m; i++)
-			if (map[i][0] == cur)
-			{
-				vi[cur] = cnt + 1;
-				dfs(map[i][1], cnt + 1);
-				vi[cur] = 0;
-				dfs(cur, cnt);
+		ns = q.front();
+		q.pop();
 
+		for (int i = 0; i < m; i++)
+			if (vi[i] != st + 1 && map[i][0] == ns)
+			{
+				vi[i] = st + 1;
+				q.push(map[i][1]);
+				d++;
 			}
 	}
+
+	return d;
 }
 int main()
 {
 	cin >> n >> m;
 	for (int i = 0; i < m; i++)
 	{
-		cin >> map[i][1] >> map[i][0];
+		scanf("%d%d", &map[i][1], &map[i][0]);
 		map[i][0]--;
 		map[i][1]--;
 	}
-	int m = -1;
+
+	int ma = -1;
+
 	for (int i = 0; i < n; i++)
 	{
-		mx[i] = dfs(i, 0);
-		if (mx[i] > m)
-			m = mx[i];
+		mx[i] = bfs(i);
+		if (mx[i] > ma)
+			ma = mx[i];
 	}
 
 	for (int i = 0; i < n; i++)
-		if (mx[i] == m)
-			cout << i << " ";
+		if (mx[i] == ma)
+			cout << i + 1 << " ";
+
+	return 0;
 }
