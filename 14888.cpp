@@ -20,7 +20,7 @@ int cal(int a,int b, int op)
 	if(op==3)return a/b;
 }
 
-int dfs(int cnt,int val)//연산자의 총 갯수,지금 고른 연산자 위치(0~n-1), 현재까지 계산 값  
+int dfs(int cnt,int val)//지금 고른 연산자 위치(0~n-1), 현재까지 계산 값  
 {
 	if(cnt==n-1)//연산자를 다 고름 
 	{

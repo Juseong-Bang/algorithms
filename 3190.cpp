@@ -27,7 +27,6 @@ int iy[4] = { 1,0,-1,0 };
 int n, k, l, body = 1;
 col ap[100];
 vector<pair<int, char> > d;
-vector<col> q;
 
 bool check(int a, int b) {
 	for (int i = 0; i<k; i++) {

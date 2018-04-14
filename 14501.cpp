@@ -11,53 +11,53 @@
 #include<iostream>
 using namespace std;
 int n;
-int tp[15][2]={0,};
-bool ch[15]={false,};
-int mi=-1;
+int tp[15][2] = { 0, };
+bool ch[15] = { false, };
+int mi = -1;
 
-int pr(){
-	int ret=0;
-for(int i=0;i<n;i++)
-{
-	if(ch[i]){
-		ret+=tp[i][1];
+int pr() {
+	int ret = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (ch[i]) {
+			ret += tp[i][1];
+		}
 	}
-}
 	return ret;
-	
-	
+
+
 }
 void dfs(int day)//
 {
-	if(day==n){
-		int m=0;
-		m=pr();
-		if(mi==-1 || mi<m)
+	if (day == n) {
+		int m = 0;
+		m = pr();
+		if (mi == -1 || mi < m)
 		{
-			mi=m;
+			mi = m;
 		}
 		return;
 	}
-	
-	if(day>=n)	
+
+	if (day >= n)
 		return;
-	
-	ch[day]=true;
-	dfs(day+tp[day][0]);
-	ch[day]=false;
-	dfs(day+1);
-	
+
+	ch[day] = true;
+	dfs(day + tp[day][0]);
+	ch[day] = false;
+	dfs(day + 1);
+
 	return;
 }
-int main ()
+int main()
 {
-	cin>>n;
-	
-	for(int i=0;i<n;i++){
-		cin>>tp[i][0];
-		cin>>tp[i][1];
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> tp[i][0];
+		cin >> tp[i][1];
 	}
 	dfs(0);
-	cout<<mi;
+	cout << mi;
 	return 0;
 }

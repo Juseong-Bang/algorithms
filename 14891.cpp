@@ -25,15 +25,15 @@ int k;//회전 횟수
 void roll(int gn, int w)// 기어 번호, 방향 
 {
 	int temp;
-	if (w<0)//-1은 반시계
-		for (int i = 0; i<8 - 1; i++)
+	if (w < 0)//-1은 반시계
+		for (int i = 0; i < 8 - 1; i++)
 		{
 			temp = gear[gn][(i + 1) % 8];
 			gear[gn][(i + 1) % 8] = gear[gn][i];
 			gear[gn][i] = temp;
 		}
 	else//1은 시계
-		for (int i = 7; i>0; i--) {
+		for (int i = 7; i > 0; i--) {
 			temp = gear[gn][i - 1];
 			gear[gn][i - 1] = gear[gn][i];
 			gear[gn][i] = temp;
@@ -42,32 +42,32 @@ void roll(int gn, int w)// 기어 번호, 방향
 }
 void bfs() {
 	int gn, w;//기어번호, 방향	
-	for (int c = 0; c < k; c++) 
-	{	
+	for (int c = 0; c < k; c++)
+	{
 		int check[4] = { 0, };
-		check[spin[c][0]]=spin[c][1];
+		check[spin[c][0]] = spin[c][1];
 		q.push(make_pair(spin[c][0], spin[c][1]));
 		while (!q.empty())
 		{
 			gn = q.front().first;
 			w = q.front().second;
 			q.pop();
-			if (0<gn && gn<4)//왼쪽이 있다면 123
+			if (0 < gn && gn < 4)//왼쪽이 있다면 123
 				if (gear[gn][6] != gear[gn - 1][2] && check[gn - 1] == 0)//극이 다르고 회전한적이 없다면 
 				{
-					check[gn-1] = -w;
+					check[gn - 1] = -w;
 					q.push(make_pair(gn - 1, -w));
 				}
-			
-			if (-1<gn && gn<3)//오른쪽이 있다면 012
+
+			if (-1 < gn && gn < 3)//오른쪽이 있다면 012
 				if (gear[gn][2] != gear[gn + 1][6] && check[gn + 1] == 0)//극이 다르면 
 				{
-					check[gn+1]= -w;
+					check[gn + 1] = -w;
 					q.push(make_pair(gn + 1, -w));
 				}
 		}
-		
-		for (int b = 0; b<4; b++)
+
+		for (int b = 0; b < 4; b++)
 			if (check[b] != 0)
 				roll(b, check[b]);
 	}
@@ -77,29 +77,29 @@ void bfs() {
 int main()
 {
 	int  score = 0, t = 1;
-	
-		for (int i = 0; i<4; i++)
-			for (int j = 0; j<8; j++)
-				scanf("%1d",&gear[i][j]);//i번쨰 기어의 극 입력 
-		cin >> k;
-		
-		for (int i = 0; i<k; i++)
-		{
-			cin >> spin[i][0] >> spin[i][1];//기어 번호, 회전 
-			spin[i][0]--;
-		}
-		bfs();
-		
-		t = 1;
-		score = 0;
 
-		for (int b = 0; b<4; b++)
-		{
-			if (gear[b][0] == 1)
-				score += t;
-			t *= 2;
-		}
-	cout <<score;
-	
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 8; j++)
+			scanf("%1d", &gear[i][j]);//i번쨰 기어의 극 입력 
+	cin >> k;
+
+	for (int i = 0; i < k; i++)
+	{
+		cin >> spin[i][0] >> spin[i][1];//기어 번호, 회전 
+		spin[i][0]--;
+	}
+	bfs();
+
+	t = 1;
+	score = 0;
+
+	for (int b = 0; b < 4; b++)
+	{
+		if (gear[b][0] == 1)
+			score += t;
+		t *= 2;
+	}
+	cout << score;
+
 	return 0;
 }

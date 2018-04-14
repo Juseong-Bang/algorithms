@@ -73,7 +73,7 @@ void path() {
 			w = -1;
 			tw = false;
 		}
-		}
+	}
 }
 int main() {
 	cin >> n >> l;

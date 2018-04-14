@@ -8,47 +8,47 @@ W 대학 점수와 K 대학의 점수를 순서대로 공백으로 구분하여 
 
 #include<iostream>
 using namespace std;
-int w[10]={0,},k[10]={0,};
-void sw(int * a,int * b){
+int w[10] = { 0, }, k[10] = { 0, };
+void sw(int * a, int * b) {
 	int t;
-	t=*a;
-	*a=*b;
-	*b=t;
+	t = *a;
+	*a = *b;
+	*b = t;
 }
-void qsort(int * ar , int l, int r){
-	int i=l+1,p=l,j=l;
-	
-	if(l<r)
-	{
-		for(;i<=r;i++){
-		if(ar[i]<ar[p]){
-			j++;
-			sw(&ar[j],&ar[i]);
-		}
-	}
-	sw(&ar[j],&ar[p]);
-		
+void qsort(int * ar, int l, int r) {
+	int i = l + 1, p = l, j = l;
 
-	qsort(ar,l,j-1);
-	qsort(ar,j+1,r);
+	if (l < r)
+	{
+		for (; i <= r; i++) {
+			if (ar[i] < ar[p]) {
+				j++;
+				sw(&ar[j], &ar[i]);
+			}
+		}
+		sw(&ar[j], &ar[p]);
+
+
+		qsort(ar, l, j - 1);
+		qsort(ar, j + 1, r);
+	}
+
 }
-	
-}
-int main (){
-	for(int i=0;i<20;i++){
-		if(i<10)
-			cin>>w[i];
+int main() {
+	for (int i = 0; i < 20; i++) {
+		if (i < 10)
+			cin >> w[i];
 		else
-			cin>>k[i-10];
+			cin >> k[i - 10];
 	}
-	qsort(w,0,9);
-	qsort(k,0,9);
-	
-	int s1=0,s2=0;
-	for(int i=0;i<3;i++){
-		s1+=w[9-i];
-		s2+=k[9-i];
-		
+	qsort(w, 0, 9);
+	qsort(k, 0, 9);
+
+	int s1 = 0, s2 = 0;
+	for (int i = 0; i < 3; i++) {
+		s1 += w[9 - i];
+		s2 += k[9 - i];
+
 	}
-	cout<<s1<<" "<<s2<<endl;
+	cout << s1 << " " << s2 << endl;
 }

@@ -12,10 +12,8 @@ x와 y는 서로 다른 정수이며, 두 정점 사이에 여러 간선이 존재할 수 있다.
 각 테스트 케이스마다 ‘#x ’(x는 테스트케이스 번호를 의미하며 1부터 시작한다)를 출력하고, 그래프에서의 최장 경로의 길이를 출력한다.
 */
 
-//#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<cstring>
-#pragma warning(disable: 4996)
 
 using namespace std;
 
@@ -27,16 +25,18 @@ void dfs(int cur, int cnt) {
 	if (ma < cnt)
 		ma = cnt;
 
-	vi[cur] = cnt;//현재 선택된 노드에 방문 표시 
 
 	for (int i = 0; i < n; i++)// 모든 노드에 대해서 
 	{
 		if (map[cur][i] == 1 && vi[i] == 0)//cur과 연결되고 방문하지 않은 노드 i에 대해서 
 		{
+			vi[i] = cnt + 1;//현재 선택된 노드에 방문 표시 
+
 			dfs(i, cnt + 1);//i를 선택, 갯수+1
+			vi[i] = 0;// 방문 후 해제 
 		}
 	}
-	vi[cur] = 0;// 방문 후 해제 
+
 
 	return;
 }
@@ -64,6 +64,7 @@ int main() {
 		for (int i = 0; i < n; i++)
 		{
 			memset(vi, 0, sizeof(vi));//방문 초기화!!!!
+			vi[i] = 1;
 			dfs(i, 1);//cur,cnt
 		}
 
