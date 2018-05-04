@@ -1,3 +1,4 @@
-﻿  ss.cpp
-  algorithms.vcxproj -> C:\Users\bj241\Documents\algorithms\Debug\algorithms.exe
-  algorithms.vcxproj -> C:\Users\bj241\Documents\algorithms\Debug\algorithms.pdb (Full PDB)
+﻿  0_5_1.cpp
+  LINK : C:\Users\JuseongBang\Documents\git\algorithms\Debug\algorithms.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+  algorithms.vcxproj -> C:\Users\JuseongBang\Documents\git\algorithms\Debug\algorithms.exe
+  algorithms.vcxproj -> C:\Users\JuseongBang\Documents\git\algorithms\Debug\algorithms.pdb (Full PDB)
