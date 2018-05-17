@@ -18,6 +18,7 @@
 */
 #include<iostream>
 using namespace std;
+
 int mr[10] = { 0, };
 int main()
 {
@@ -25,21 +26,38 @@ int main()
 	{
 		cin >> mr[i];
 	}
-	int sum = 0;
-	for (int i = 0; i < 10; i++)
-		for (int j = i; j < 10; j++)
-			if (sum == 100)
-			{
-				cout << sum;
-				return 0;
-			}
-			else if (sum < 100)
-			{
-				sum += mr[i];
-			}
-			else
-			{
+	int sum, before, after, val = 0;
 
-			}
+	sum = 0;
+	before = 0;
+	after = 0;
 
+	for (int j = 0; j < 10; j++)
+	{
+		if (sum == 100)
+		{
+			cout << sum;
+			return 0;
+		}
+		else if (sum < 100)
+		{
+			sum += mr[j];
+			before = sum;
+		}
+		else
+		{
+			after = sum;
+			break;
+		}
+	}
+
+	if (after != 0)
+		if (100 - before >= after - 100)
+		{
+			cout << after;
+			return 0;
+		}
+
+	cout << before;
+	return 0;
 }
