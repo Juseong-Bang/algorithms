@@ -18,9 +18,28 @@
 */
 #include<iostream>
 using namespace std;
-
+int mr[10] = { 0, };
 int main()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		cin >> mr[i];
+	}
+	int sum = 0;
+	for (int i = 0; i < 10; i++)
+		for (int j = i; j < 10; j++)
+			if (sum == 100)
+			{
+				cout << sum;
+				return 0;
+			}
+			else if (sum < 100)
+			{
+				sum += mr[i];
+			}
+			else
+			{
 
+			}
 
 }
