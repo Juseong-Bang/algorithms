@@ -25,12 +25,12 @@ A에서 B로 변환하기 위해 필요한 최소한의 명령어 나열을 출력한다.
 */
 #include<iostream>
 #include<queue>
-
+#include<cstring>
 using namespace std;
 int a, b;
-int vi[10000] = { 0, };
-char list[10001] = { 0, };
-queue <pair<int, > > q;
+int vi[10001] = { 0, };
+int op[10001] = { 0, };
+
 
 int d(int n)
 {
@@ -38,7 +38,7 @@ int d(int n)
 }
 int s(int n)
 {
-	if (n - 1 == 0)
+	if (n - 1 == -1)
 		return 9999;
 	else
 		return n - 1;
@@ -77,36 +77,78 @@ int cal(int num, int op)
 	}
 }
 
-int bfs()
+void bfs()
 {
-	int n,  nx;
-	
-	
-	q.push(make_pair(a,));
-	vi[a] = 1;
+	queue <int > q;
+	int n, nx, fr;//현재 , 다음 , 어디에서 왓는지
+
+	q.push(a);
+	vi[a] = -2;
 	while (!q.empty())
 	{
-		n = q.front().first;
- = q.front().second;
+		n = q.front();
 		q.pop();
+
+		if (n == b)
+			return;
+
 		for (int i = 1; i < 5; i++)
 		{
 			nx = cal(n, i);
-			if (vi[nx] == 0)
+			if (nx >= 0 && nx < 100000 && vi[nx] == -1)
 			{
-				vi[nx] = 1;
-				q.push(make_pair(nx, ));
+				vi[nx] = n;//온 지점 기록 
+				op[nx] = i;//연산자 기록 
+				q.push(nx);
 			}
 		}
 	}
+	return;
 }
 
 int main()
 {
 	int x = 0;
+	int list[10000] = { 0, };
 	cin >> x;
 	for (int v = 0; v < x; v++)
 	{
 		cin >> a >> b;
+		memset(vi, -1, sizeof(vi));
+		memset(op, 0, sizeof(op));
+
+		bfs();
+
+		int p = 0;
+
+		int re = vi[b];
+		list[p++] = op[b];
+
+		while (re != -2)
+		{
+			list[p++] = op[re];
+			re = vi[re];
+		}
+
+		for (int i = p - 1; i >= 0; i--)
+		{
+			switch (list[i])
+			{
+			case 1:
+				cout << "D";
+				break;
+			case 2:
+				cout << "S";
+				break;
+			case 3:
+				cout << "L";
+				break;
+			case 4:
+				cout << "R";
+				break;
+			}
+		}
+		cout << endl;
 	}
+	return 0;
 }
